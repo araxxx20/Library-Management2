@@ -1,14 +1,8 @@
-const express = require('express')
-const router = express.Router()
+const express = require('express');
+const router = express.Router();
 
-const {
-    createProduct,
-    getAllProducts,
-    reduceStock
-} = require('./controller')
+const { createBorrow } = require('./controller');
 
-router.post('/add', createProduct)
-router.get('/', getAllProducts)
-router.patch('/edit/:productId', reduceStock)
+router.post('/borrow', createBorrow); 
 
-module.exports = router
+module.exports = router;
