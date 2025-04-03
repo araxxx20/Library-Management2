@@ -4,7 +4,7 @@ const express = require('express')
 const mongoose = require('mongoose')
 
 const productRoutes = require('./route')
-
+const finesRoutes = require('./route')
 //init app
 const app = express()
 
@@ -26,3 +26,4 @@ mongoose.connect(process.env.DB)
 
 
 app.use('/inventory', productRoutes)
+app.use('/students', finesRoutes);

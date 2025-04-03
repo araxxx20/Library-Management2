@@ -1,14 +1,8 @@
 const express = require('express')
 const router = express.Router()
+const { getFines } = require('../backend/controller');
 
-const {
-    createProduct,
-    getAllProducts,
-    reduceStock
-} = require('./controller')
 
-router.post('/add', createProduct)
-router.get('/', getAllProducts)
-router.patch('/edit/:productId', reduceStock)
 
+router.get('/:id/fines', getFines);
 module.exports = router
