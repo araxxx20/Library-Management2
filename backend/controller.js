@@ -60,8 +60,25 @@ const getBooks = async (req, res) => {
     }
 };
 
+// Get a specific book by book_id
+const getBookById = async (req, res) => {
+    const { book_id } = req.params;
+
+    try {
+        const book = await Book.findOne({ book_id });
+        if (!book) {
+            return res.status(404).json({ success: false, message: "Book not found" });
+        }
+
+        res.status(200).json({ success: true, book });
+    } catch (error) {
+        res.status(500).json({ success: false, message: 'Error fetching book', error });
+    }
+};
+
 module.exports = {
     createBorrow,
     addBook,
-    getBooks
+    getBooks,
+    getBookById
 };
