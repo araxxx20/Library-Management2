@@ -1,8 +1,13 @@
 const express = require('express');
 const router = express.Router();
 
-const { createBorrow } = require('./controller');
+const { 
+    createBorrow,
+    getBorrowWithFine 
 
-router.post('/borrow', createBorrow); 
+} = require('./controller');
+
+router.post('/borrow', createBorrow);
+router.get('/:id/fines', getBorrowWithFine); 
 
 module.exports = router;
