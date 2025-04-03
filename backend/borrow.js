@@ -1,24 +1,20 @@
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
 
-const Schema = mongoose.Schema
+const Schema = mongoose.Schema;
 
-const productSchema = new Schema({
-    name: {
+const borrowSchema = new Schema({
+    student_id: {
         type: String,
         required: true
     },
-    description: {
+    book_id: {
         type: String,
-        requied: true
-    },
-    stock:{
-        type: Number,
         required: true
     },
-    price:{
-        type: Number,
-        required:true
+    due_date: {
+        type: Date,
+        required: true
     }
-}, {timestamps: true})
+}, { timestamps: true });
 
-module.exports = mongoose.model('Product', productSchema)
+module.exports = mongoose.model('Borrow', borrowSchema);
