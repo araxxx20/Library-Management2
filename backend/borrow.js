@@ -1,20 +1,21 @@
 const mongoose = require('mongoose');
 
-const Schema = mongoose.Schema;
-
-const borrowSchema = new Schema({
-    student_id: {
+const BorrowSchema = new mongoose.Schema({
+    student_id: { 
+        type: String, 
+        required: true },
+    book_id: { 
         type: String,
-        required: true
-    },
-    book_id: {
-        type: String,
-        required: true
-    },
-    due_date: {
-        type: Date,
-        required: true
+         required: true },
+    due_date: { 
+        type: Date, 
+        required: true },
+    fine: {
+        fine_amount: { 
+            type: Number, 
+            default: 0 }, // Default no fine
+        due_date: { type: Date, required: false }
     }
-}, { timestamps: true });
+});
 
-module.exports = mongoose.model('Borrow', borrowSchema);
+module.exports = mongoose.model('Borrow', BorrowSchema);

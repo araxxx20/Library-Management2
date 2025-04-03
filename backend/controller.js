@@ -1,36 +1,42 @@
 const Borrow = require('./borrow');
 const Book = require('./book');
 
-// Create Borrow (borrow a book)
+// Create Borrow
 const createBorrow = async (req, res) => {
-    const { student_id, book_id, due_date } = req.body;
+    const { student_id, book_id, due_date, fine_amount, fine_due_date } = req.body;
 
     try {
-        // Check if book exists
-        const book = await Book.findOne({ book_id });
-        if (!book) {
-            return res.status(404).json({ success: false, message: "Book not found" });
-        }
+        const borrow = await Borrow.create({
+            student_id,
+            book_id,
+            due_date,
+            fine: fine_amount ? { fine_amount, due_date: fine_due_date } : undefined
+        });
 
-        // Check if there are copies available
-        if (book.copies <= 0) {
-            return res.status(400).json({ success: false, message: "No copies available" });
-        }
-
-        // Create a borrow record
-        const borrow = await Borrow.create({ student_id, book_id, due_date });
-
-        // Reduce book copies by 1
-        book.copies -= 1;
-        await book.save();
-
-        res.status(200).json({ success: true, message: "Book borrowed successfully", borrow });
+        res.status(200).json({ success: true, message: borrow });
     } catch (err) {
         console.log(err);
         res.status(500).json({ success: false, message: err.message });
     }
 };
 
+// Get borrow details with fine
+const getBorrowWithFine = async (req, res) => {
+    const studentId = req.params.id;
+
+    try {
+        const borrow = await Borrow.findOne({ student_id: studentId });
+
+        if (borrow) {
+            res.json(borrow);
+        } else {
+            res.status(404).json({ error: "Borrow record not found" });
+        }
+    } catch (error) {
+        console.error("Error fetching borrow record:", error);
+        res.status(500).json({ error: "Internal Server Error" });
+    }
+};
 // Add a new book to the inventory
 const addBook = async (req, res) => {
     const { book_id, title, author, copies } = req.body;
@@ -80,5 +86,6 @@ module.exports = {
     createBorrow,
     addBook,
     getBooks,
-    getBookById
+    getBookById,
+    getBorrowWithFine
 };
