@@ -27,4 +27,4 @@ mongoose.connect(process.env.DB)
     });
 
 // Routes
-app.use('/books', booksRoutes);  
+app.use('/books', booksRoutes);
