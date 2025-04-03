@@ -1,8 +1,11 @@
 const express = require('express');
 const router = express.Router();
 
-const { createBorrow } = require('./controller');
+const { createBorrow, addBook, getBooks } = require('./controller');
 
-router.post('/borrow', createBorrow); 
+// Routes
+router.post('/borrow', createBorrow);
+router.post('/add', addBook);
+router.get('/list', getBooks);
 
 module.exports = router;

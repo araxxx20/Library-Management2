@@ -2,7 +2,6 @@ require('dotenv').config();
 
 const express = require('express');
 const mongoose = require('mongoose');
-
 const booksRoutes = require('./route'); 
 
 // Init app
@@ -19,12 +18,12 @@ app.use((req, res, next) => {
 mongoose.connect(process.env.DB)
     .then(() => {
         app.listen(process.env.PORT, () => {
-            console.log(` Connected to database`);
-            console.log(` Server running :${process.env.PORT}`);
+            console.log(`Connected to database`);
+            console.log(`Server running on port ${process.env.PORT}`);
         });
     })
     .catch(error => {
-        console.error(" Database connection error:", error);
+        console.error("Database connection error:", error);
     });
 
 // Routes
